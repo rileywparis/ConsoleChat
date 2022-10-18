@@ -20,17 +20,16 @@ namespace ConsoleChat
         {
             Console.Title = "Server";
             Console.WriteLine("Setting up server...");
-            serverSocket.Bind(new IPEndPoint(IPAddress.Any, PORT));
+            serverSocket.Bind(new IPEndPoint(IPAddress.Parse("172.20.8.252"), PORT));
             serverSocket.Listen(0);
             serverSocket.BeginAccept(AcceptCallback, null);
-            Console.WriteLine("Server setup complete");
+            Console.WriteLine("Setup complete");
             Console.ReadLine();
         }
 
         private static void AcceptCallback(IAsyncResult AR)
         {
             Socket socket;
-
             try
             {
                 socket = serverSocket.EndAccept(AR);
