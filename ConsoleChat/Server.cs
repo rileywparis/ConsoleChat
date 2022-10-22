@@ -41,7 +41,7 @@ namespace ConsoleChat
             int receivedBytesLen = clientSocket.Receive(clientData);
             int fileNameLen = BitConverter.ToInt32(clientData, 0);
             string fileName = new DirectoryInfo(Encoding.ASCII.GetString(clientData, 4, fileNameLen)).Name;
-            Console.WriteLine(fileName);
+            Console.WriteLine(clientSocket.LocalEndPoint + " sending " + fileName);
             BinaryWriter bWrite = new BinaryWriter(File.Open(PATH + @"\" + fileName, FileMode.Create));
             bWrite.Write(clientData, 4 + fileNameLen, receivedBytesLen - 4 - fileNameLen);
             bWrite.Close();
