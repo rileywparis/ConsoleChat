@@ -10,7 +10,7 @@ namespace ChatWindow
 {
     internal class Chat
     {
-        private static readonly Socket ClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        private static Socket ClientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         private const int PORT = 25565;
 
         static void Main(string[] args)
@@ -25,10 +25,8 @@ namespace ChatWindow
         private static void ReceiveMessage()
         {
             var buffer = new byte[2048];
-            int received = ClientSocket.Receive(buffer, SocketFlags.None);
-            var data = new byte[received];
-            Array.Copy(buffer, data, received);
-            Console.WriteLine(Encoding.ASCII.GetString(data));
+            ClientSocket.Receive(buffer);
+            Console.WriteLine(Encoding.ASCII.GetString(buffer));
         }
     }
 }
